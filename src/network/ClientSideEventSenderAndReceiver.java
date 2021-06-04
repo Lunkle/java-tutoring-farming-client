@@ -78,6 +78,7 @@ public class ClientSideEventSenderAndReceiver implements Runnable {
 				return;
 			}
 			while (running) {
+				// Send events through out
 				sendEvents(out);
 				Thread.yield();
 			}
@@ -93,6 +94,7 @@ public class ClientSideEventSenderAndReceiver implements Runnable {
 				return;
 			}
 			while (running) {
+				// Receive events through in
 				receiveEvents(in);
 				Thread.yield();
 			}
@@ -125,6 +127,33 @@ public class ClientSideEventSenderAndReceiver implements Runnable {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Getter for the sendEventBuffer.
+	 * 
+	 * @return the sendEventBuffer
+	 */
+	public Queue<CTSEvent> getSendEventBuffer() {
+		return sendEventBuffer;
+	}
+
+	/**
+	 * If the client side event sender and receiver are still running.
+	 * 
+	 * @return the status of the client side event sender and receiver
+	 */
+	public boolean isRunning() {
+		return running;
+	}
+
+	/**
+	 * Getter for the receiveEventBuffer.
+	 * 
+	 * @return the receiveEventBuffer
+	 */
+	public Queue<STCEvent> getReceiveEventBuffer() {
+		return receiveEventBuffer;
 	}
 
 	/**
