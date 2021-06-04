@@ -16,11 +16,14 @@ import event.stcevent.STCEvent;
 
 /**
  * In charge of sending {@link CTSEvent}s and receiving {@link STCEvent}s.
+ * <p>
+ * You probably don't need to change this.
+ * </p>
  * 
  * @author Jay
  *
  */
-public class ClientSideEventSenderAndReceiver implements Runnable {
+public class ClientNetworking implements Runnable {
 
 	private boolean running;
 	private Queue<CTSEvent> sendEventBuffer;
