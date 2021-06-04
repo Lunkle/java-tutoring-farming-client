@@ -10,27 +10,46 @@ import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import event.EventSerializer;
 import event.ctsevent.CTSEvent;
 import event.stcevent.STCEvent;
 
-public class FarmingClient implements Runnable {
+/**
+ * In charge of sending {@link CTSEvent}s and receiving {@link STCEvent}s.
+ * 
+ * @author Jay
+ *
+ */
+public class ClientSideEventSenderAndReceiver implements Runnable {
 
 	private boolean running;
-	private Queue<CTSEvent> toSendEventBuffer;
+	private Queue<CTSEvent> sendEventBuffer;
 	private Queue<STCEvent> receiveEventBuffer;
 	private Socket socket;
 
-	public FarmingClient() {
-		running = false;
-		toSendEventBuffer = new LinkedList<>();
-		receiveEventBuffer = new LinkedList<>();
-	}
-
 	@Override
 	public void run() {
+		// Initialize fields
+		init();
+		// Shut down if unable to connect
+		if (running == false) {
+			return;
+		}
+		// Begin sender and receiver threads if connected successfully
+		startSenderAndReceiverThreads();
+	}
+
+	/**
+	 * Initializes fields running, sendEventBuffer, receiveEventBuffer, and socket.
+	 */
+	private void init() {
+		sendEventBuffer = new LinkedList<>();
+		receiveEventBuffer = new LinkedList<>();
 		try {
 			System.out.println("Contacting Donny's server...");
 			socket = new Socket("72.140.156.47", 45000);
+			// Set the read() method on the socket's input stream to only block for 160 ms
+			// before throwing a SocketTimeoutException.
 			socket.setSoTimeout(160);
 			System.out.println("Connection accepted.");
 		} catch (Exception e) {
@@ -40,8 +59,17 @@ public class FarmingClient implements Runnable {
 			return;
 		}
 		running = true;
+	}
+
+	/**
+	 * Starts two threads that send and receive events, respectively.
+	 */
+	private void startSenderAndReceiverThreads() {
+		// Create a new thread pool
 		ExecutorService threadPool = Executors.newFixedThreadPool(2);
+		// Start a thread that sends events
 		threadPool.execute(() -> {
+			// Initialize an ObjectOutputStream
 			ObjectOutputStream out = null;
 			try {
 				out = new ObjectOutputStream(socket.getOutputStream());
@@ -54,7 +82,9 @@ public class FarmingClient implements Runnable {
 				Thread.yield();
 			}
 		});
+		// Start a thread that receives events
 		threadPool.execute(() -> {
+			// Initialize an ObjectInputStream
 			ObjectInputStream in = null;
 			try {
 				in = new ObjectInputStream(socket.getInputStream());
@@ -63,14 +93,15 @@ public class FarmingClient implements Runnable {
 				return;
 			}
 			while (running) {
+				receiveEvents(in);
 				Thread.yield();
 			}
 		});
 	}
 
 	private void sendEvents(ObjectOutputStream out) {
-		if (!toSendEventBuffer.isEmpty()) {
-			CTSEvent event = toSendEventBuffer.poll();
+		if (!sendEventBuffer.isEmpty()) {
+			CTSEvent event = sendEventBuffer.poll();
 			try {
 				out.writeObject(event);
 				System.out.println("[Message sent]: " + event.getDescription());
@@ -84,15 +115,21 @@ public class FarmingClient implements Runnable {
 		byte[] bytes = new byte[1024];
 		try {
 			in.read(bytes);
-			// Deserialize byte array into a STCEvent
-			// Add STCEvent to receiveEventBuffer
+			STCEvent deserialized = (STCEvent) EventSerializer.instance().deserialize(bytes);
+			System.out.println("[Message received]: " + deserialized.getDescription());
+			receiveEventBuffer.add(deserialized);
 		} catch (SocketTimeoutException e) {
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Ends the sender and receiver threads.
+	 */
 	public void close() {
 		if (running) {
 			running = false;
