@@ -68,6 +68,8 @@ public class TypingInteraction extends FarmingInteraction {
 				+ "\t(check/c) to check messages\n"
 				+ "\t(read/r) to read next message\n"
 				+ "\t(login/lg) to login\n"
+				+ "\t(inventory/i) to see your inventory\n"
+				+ "\t(sowseed/ss) to sow a seed\n"
 				+ "\t(farmland/fl) to see your farmland\n"
 				+ "\t(flplant/flp) to inspect a plant\n"
 				+ "\t(flterrain/flt) to inspect the terrain\n";
