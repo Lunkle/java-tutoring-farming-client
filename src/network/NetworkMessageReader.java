@@ -35,10 +35,8 @@ public class NetworkMessageReader implements Runnable {
 
 	private void readEvent() {
 		try {
-			if (objectInputStream.available() > 0) {
-				STCEvent readEvent = (STCEvent) objectInputStream.readObject();
-				stcBuffer.add(readEvent);
-			}
+			STCEvent readEvent = (STCEvent) objectInputStream.readObject();
+			stcBuffer.add(readEvent);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

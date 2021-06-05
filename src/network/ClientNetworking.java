@@ -62,11 +62,11 @@ public class ClientNetworking {
 	public void close() {
 		if (started) {
 			try {
-				socket.close();
 				reader.close();
 				readerThread.join();
 				sender.close();
 				senderThread.join();
+				socket.close();
 			} catch (InterruptedException | IOException e) {
 				e.printStackTrace();
 			}
