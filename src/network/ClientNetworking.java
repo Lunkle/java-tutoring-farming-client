@@ -26,6 +26,9 @@ public class ClientNetworking {
 	private Queue<STCEvent> stcBuffer;
 	private NetworkMessageReceiver receiver;
 	private NetworkMessageSender sender;
+	private Thread receiverThread;
+	private Thread senderThread;
+	private boolean started = false;
 
 	public ClientNetworking(String serverIp, Queue<CTSEvent> ctsBuffer, Queue<STCEvent> stcBuffer) {
 		this.serverIp = serverIp;
@@ -35,10 +38,13 @@ public class ClientNetworking {
 
 	public void start() {
 		connectToServer();
-		receiver = new NetworkMessageReceiver(getInputStream(), stcBuffer);
 		sender = new NetworkMessageSender(getOutputStream(), ctsBuffer);
-		new Thread(receiver).start();
-		new Thread(sender).start();
+		receiver = new NetworkMessageReceiver(getInputStream(), stcBuffer);
+		receiverThread = new Thread(receiver);
+		receiverThread.start();
+		senderThread = new Thread(sender);
+		senderThread.start();
+		started = true;
 	}
 
 	private void connectToServer() {
@@ -54,11 +60,15 @@ public class ClientNetworking {
 	}
 
 	public void close() {
-		if (receiver != null) {
-			receiver.close();
-		}
-		if (sender != null) {
-			sender.close();
+		if (started) {
+			try {
+				receiver.close();
+				receiverThread.join();
+				sender.close();
+				senderThread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -73,7 +83,8 @@ public class ClientNetworking {
 
 	private ObjectInputStream getInputStream() {
 		try {
-			return new ObjectInputStream(socket.getInputStream());
+			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+			return objectInputStream;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

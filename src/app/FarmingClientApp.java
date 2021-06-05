@@ -24,6 +24,7 @@ public class FarmingClientApp {
 		FarmingInteraction interaction = new TypingInteraction(ctsBuffer, stcBuffer);
 		// ===========================================================================
 		interaction.begin();
+		clientNetworking.close();
 	}
 
 }

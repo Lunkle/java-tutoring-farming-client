@@ -21,14 +21,24 @@ public class NetworkMessageReceiver implements Runnable {
 	public void run() {
 		while (!isDone) {
 			readEvent();
-			Thread.yield();
+			sleep();
+		}
+	}
+
+	private void sleep() {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void readEvent() {
 		try {
-			STCEvent readEvent = (STCEvent) objectInputStream.readObject();
-			stcBuffer.add(readEvent);
+			if (objectInputStream.available() > 0) {
+				STCEvent readEvent = (STCEvent) objectInputStream.readObject();
+				stcBuffer.add(readEvent);
+			}
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
