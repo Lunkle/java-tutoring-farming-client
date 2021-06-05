@@ -24,9 +24,9 @@ public class ClientNetworking {
 	private String serverIp;
 	private Queue<CTSEvent> ctsBuffer;
 	private Queue<STCEvent> stcBuffer;
-	private NetworkMessageReceiver receiver;
+	private NetworkMessageReader reader;
 	private NetworkMessageSender sender;
-	private Thread receiverThread;
+	private Thread readerThread;
 	private Thread senderThread;
 	private boolean started = false;
 
@@ -39,9 +39,9 @@ public class ClientNetworking {
 	public void start() {
 		connectToServer();
 		sender = new NetworkMessageSender(getOutputStream(), ctsBuffer);
-		receiver = new NetworkMessageReceiver(getInputStream(), stcBuffer);
-		receiverThread = new Thread(receiver);
-		receiverThread.start();
+		reader = new NetworkMessageReader(getInputStream(), stcBuffer);
+		readerThread = new Thread(reader);
+		readerThread.start();
 		senderThread = new Thread(sender);
 		senderThread.start();
 		started = true;
@@ -62,11 +62,12 @@ public class ClientNetworking {
 	public void close() {
 		if (started) {
 			try {
-				receiver.close();
-				receiverThread.join();
+				socket.close();
+				reader.close();
+				readerThread.join();
 				sender.close();
 				senderThread.join();
-			} catch (InterruptedException e) {
+			} catch (InterruptedException | IOException e) {
 				e.printStackTrace();
 			}
 		}

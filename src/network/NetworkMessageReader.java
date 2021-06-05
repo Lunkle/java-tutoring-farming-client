@@ -6,13 +6,13 @@ import java.util.Queue;
 
 import event.stcevent.STCEvent;
 
-public class NetworkMessageReceiver implements Runnable {
+public class NetworkMessageReader implements Runnable {
 
 	private ObjectInputStream objectInputStream;
 	private Queue<STCEvent> stcBuffer;
 	private boolean isDone = false;
 
-	public NetworkMessageReceiver(ObjectInputStream objectInputStream, Queue<STCEvent> stcBuffer) {
+	public NetworkMessageReader(ObjectInputStream objectInputStream, Queue<STCEvent> stcBuffer) {
 		this.objectInputStream = objectInputStream;
 		this.stcBuffer = stcBuffer;
 	}
@@ -39,8 +39,10 @@ public class NetworkMessageReceiver implements Runnable {
 				STCEvent readEvent = (STCEvent) objectInputStream.readObject();
 				stcBuffer.add(readEvent);
 			}
-		} catch (ClassNotFoundException | IOException e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Closing message reader");
 		}
 	}
 
