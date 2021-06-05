@@ -41,6 +41,7 @@ public class NetworkMessageReader implements Runnable {
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Closing message reader");
+			close();
 		}
 	}
 
