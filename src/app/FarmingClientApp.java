@@ -3,7 +3,7 @@ package app;
 import java.util.Queue;
 
 import event.ctsevent.CTSEvent;
-import event.ctsevent.LoginRequest;
+import event.ctsevent.session.LoginRequest;
 import event.stcevent.STCEvent;
 import event.stcevent.login.LoginFail;
 import event.stcevent.login.LoginSuccess;
