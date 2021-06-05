@@ -4,15 +4,16 @@ import java.util.Queue;
 
 import event.ctsevent.CTSEvent;
 import event.stcevent.STCEvent;
+import network.NetworkingBuffers;
 
 public abstract class FarmingInteraction {
 
 	private Queue<CTSEvent> ctsBuffer;
 	private Queue<STCEvent> stcBuffer;
 
-	public FarmingInteraction(Queue<CTSEvent> ctsBuffer, Queue<STCEvent> stcBuffer) {
-		this.ctsBuffer = ctsBuffer;
-		this.stcBuffer = stcBuffer;
+	public FarmingInteraction(NetworkingBuffers buffers) {
+		this.ctsBuffer = buffers.getCtsBuffer();
+		this.stcBuffer = buffers.getStcBuffer();
 	}
 
 	public abstract void begin();

@@ -1,16 +1,16 @@
 package interaction.typing;
 
-import java.util.Queue;
 import java.util.Scanner;
 
 import event.ctsevent.CTSEvent;
 import event.stcevent.STCEvent;
 import interaction.FarmingInteraction;
+import network.NetworkingBuffers;
 
 public class TypingInteraction extends FarmingInteraction {
 
-	public TypingInteraction(Queue<CTSEvent> ctsBuffer, Queue<STCEvent> stcBuffer) {
-		super(ctsBuffer, stcBuffer);
+	public TypingInteraction(NetworkingBuffers buffers) {
+		super(buffers);
 	}
 
 	@Override
@@ -59,14 +59,7 @@ public class TypingInteraction extends FarmingInteraction {
 	}
 
 	private void handleHelp() {
-		String string = "\nOptions:\n"
-				+ "\t(quit/q) to quit\n"
-				+ "\t(check/c) to check messages\n"
-				+ "\t(read/r) to read next message\n"
-				+ "\t(login/lg) to login\n"
-				+ "\t(farmland/fl) to see your farmland\n"
-				+ "\t(flplant/flp) to inspect a plant\n"
-				+ "\t(flterrain/flt) to inspect the terrain\n";
+		String string = "\nOptions:\n" + "\t(quit/q) to quit\n" + "\t(check/c) to check messages\n" + "\t(read/r) to read next message\n" + "\t(login/lg) to login\n" + "\t(farmland/fl) to see your farmland\n" + "\t(flplant/flp) to inspect a plant\n" + "\t(flterrain/flt) to inspect the terrain\n";
 		System.out.println(string);
 	}
 

@@ -30,10 +30,10 @@ public class ClientNetworking {
 	private Thread senderThread;
 	private boolean started = false;
 
-	public ClientNetworking(String serverIp, Queue<CTSEvent> ctsBuffer, Queue<STCEvent> stcBuffer) {
+	public ClientNetworking(String serverIp, NetworkingBuffers buffers) {
 		this.serverIp = serverIp;
-		this.ctsBuffer = ctsBuffer;
-		this.stcBuffer = stcBuffer;
+		this.ctsBuffer = buffers.getCtsBuffer();
+		this.stcBuffer = buffers.getStcBuffer();
 	}
 
 	public void start() {
