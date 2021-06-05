@@ -10,7 +10,6 @@ import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import event.EventSerializer;
 import event.ctsevent.CTSEvent;
 import event.stcevent.STCEvent;
 
@@ -117,10 +116,8 @@ public class ClientNetworking implements Runnable {
 	}
 
 	private void receiveEvents(ObjectInputStream in) {
-		byte[] bytes = new byte[1024];
 		try {
-			in.read(bytes);
-			STCEvent deserialized = (STCEvent) EventSerializer.instance().deserialize(bytes);
+			STCEvent deserialized = (STCEvent) in.readObject();
 			System.out.println("[Message received]: " + deserialized.getDescription());
 			receiveEventBuffer.add(deserialized);
 		} catch (SocketTimeoutException e) {
