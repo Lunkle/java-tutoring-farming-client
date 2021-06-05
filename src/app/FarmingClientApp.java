@@ -1,49 +1,29 @@
 package app;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.LinkedList;
 import java.util.Queue;
 
 import event.ctsevent.CTSEvent;
-import event.ctsevent.session.LoginRequest;
 import event.stcevent.STCEvent;
-import event.stcevent.login.LoginFail;
-import event.stcevent.login.LoginSuccess;
+import interaction.FarmingInteraction;
+import interaction.typing.TypingInteraction;
 import network.ClientNetworking;
 
-/**
- * The entry point of the client.
- * 
- * @author Jay
- *
- */
 public class FarmingClientApp {
 
-	public static void main(String[] args) throws InterruptedException {
-		// Start a new ClientNetworking
-		ClientNetworking clientNetworking = new ClientNetworking();
-		clientNetworking.run();
-		Queue<CTSEvent> sendEventBuffer = clientNetworking.getSendEventBuffer();
-		Queue<STCEvent> receiveEventBuffer = clientNetworking.getReceiveEventBuffer();
-		// Put events into sendEventBuffer to send them to the server.
-		// Check receiveEventBuffer periodically for events sent from the server.
-
-		// Sending events example:
-		sendEventBuffer.add(new LoginRequest(0, "Incorrect username", "Incorrect password"));
-
-		// Receiving events example:
-		for (;;) {
-			// poll() returns null if receiveEventBuffer was empty
-			STCEvent received = receiveEventBuffer.poll();
-			if (received != null) {
-				if (received instanceof LoginFail) {
-					System.out.println(received.getDescription()); // Prints "Failed login"
-				} else if (received instanceof LoginSuccess) {
-					System.out.println(received.getDescription()); // Prints "Successful login"
-				}
-			} else {
-				// Wait 0.5 seconds before checking again
-				Thread.sleep(500);
-			}
-		}
+	public static void main(String[] args) throws InterruptedException, UnknownHostException {
+		System.out.println("Starting client at " + InetAddress.getLocalHost().getHostAddress());
+		System.out.println("Computer name: " + InetAddress.getLocalHost().getHostName());
+		Queue<CTSEvent> ctsBuffer = new LinkedList<>();
+		Queue<STCEvent> stcBuffer = new LinkedList<>();
+		ClientNetworking clientNetworking = new ClientNetworking("72.140.156.47", ctsBuffer, stcBuffer);
+		clientNetworking.start();
+		// ==================CHANGE OUT THIS INTERACTION WITH YOUR OWN IMPLEMENTATION!
+		FarmingInteraction interaction = new TypingInteraction(ctsBuffer, stcBuffer);
+		// ===========================================================================
+		interaction.begin();
 	}
 
 }
