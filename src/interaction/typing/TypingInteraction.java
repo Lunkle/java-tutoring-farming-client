@@ -24,9 +24,9 @@ public class TypingInteraction extends FarmingInteraction {
 	}
 
 	private boolean handleInputCommand(Scanner scanner, boolean quit) {
-		System.out.print("Input a command (help/h for options): ");
+		System.out.print("Input a command ('help' for options): ");
 		String input = scanner.nextLine();
-		if (input.equals("help") || input.equals("h")) {
+		if (input.equals("help")) {
 			handleHelp();
 		} else if (input.equals("check") || input.equals("c")) {
 			handleCheckMessage();
@@ -42,6 +42,8 @@ public class TypingInteraction extends FarmingInteraction {
 				quit = true;
 			} else if (input.equals("inventory") || input.equals("i")) {
 				event = InputHandler.handleInventoryOverview();
+			} else if (input.equals("harvest") || input.equals("h")) {
+				event = InputHandler.handleHarvest(scanner);
 			} else if (input.equals("sowseed") || input.equals("ss")) {
 				event = InputHandler.handleSowSeed(scanner);
 			} else if (input.equals("farmland") || input.equals("fl")) {
@@ -64,15 +66,17 @@ public class TypingInteraction extends FarmingInteraction {
 
 	private void handleHelp() {
 		String string = "\nOptions:\n"
-				+ "\t(quit/q) to quit\n"
-				+ "\t(check/c) to check messages\n"
-				+ "\t(read/r) to read next message\n"
-				+ "\t(login/lg) to login\n"
-				+ "\t(inventory/i) to see your inventory\n"
-				+ "\t(sowseed/ss) to sow a seed\n"
-				+ "\t(farmland/fl) to see your farmland\n"
-				+ "\t(flplant/flp) to inspect a plant\n"
-				+ "\t(flterrain/flt) to inspect the terrain\n";
+				+ "\t('help') for options\n"
+				+ "\t('quit'/'q') to quit\n"
+				+ "\t('check'/'c') to check messages\n"
+				+ "\t('read'/'r') to read next message\n"
+				+ "\t('login'/'lg') to login\n"
+				+ "\t('inventory'/'i') to see your inventory\n"
+				+ "\t('sowseed'/'ss') to sow a seed\n"
+				+ "\t('harvest'/'h') to harvest a plant\n"
+				+ "\t('farmland'/'fl') to see your farmland\n"
+				+ "\t('flplant'/'flp') to inspect a plant\n"
+				+ "\t('flterrain'/'flt') to inspect the terrain\n";
 		System.out.println(string);
 	}
 

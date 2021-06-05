@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import event.ctsevent.CTSEvent;
 import event.ctsevent.game.FarmLandOverviewRequest;
+import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.InventoryOverviewRequest;
 import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
@@ -63,6 +64,15 @@ public class InputHandler {
 
 	public static CTSEvent handleInventoryOverview() {
 		CTSEvent event = new InventoryOverviewRequest(0);
+		return event;
+	}
+
+	public static CTSEvent handleHarvest(Scanner scanner) {
+		int x = readX(scanner);
+		int y = readY(scanner);
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		CTSEvent event = new HarvestLandSlotRequest(0, x, y, row, col);
 		return event;
 	}
 
