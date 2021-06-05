@@ -40,6 +40,10 @@ public class TypingInteraction extends FarmingInteraction {
 			} else if (input.equals("quit") || input.equals("q")) {
 				event = InputHandler.handleQuit();
 				quit = true;
+			} else if (input.equals("inventory") || input.equals("i")) {
+				event = InputHandler.handleInventoryOverview();
+			} else if (input.equals("sowseed") || input.equals("ss")) {
+				event = InputHandler.handleSowSeed(scanner);
 			} else if (input.equals("farmland") || input.equals("fl")) {
 				event = InputHandler.handleFarmLandOverview(scanner);
 			} else if (input.equals("flplant") || input.equals("flp")) {

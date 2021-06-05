@@ -4,8 +4,10 @@ import java.util.Scanner;
 
 import event.ctsevent.CTSEvent;
 import event.ctsevent.game.FarmLandOverviewRequest;
+import event.ctsevent.game.InventoryOverviewRequest;
 import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
+import event.ctsevent.game.SowSeedRequest;
 import event.ctsevent.session.CloseSessionRequest;
 import event.ctsevent.session.LoginRequest;
 
@@ -48,6 +50,22 @@ public class InputHandler {
 		return event;
 	}
 
+	public static CTSEvent handleSowSeed(Scanner scanner) {
+		int x = readX(scanner);
+		int y = readY(scanner);
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		System.out.print("Enter seed name: ");
+		String item = scanner.nextLine();
+		CTSEvent event = new SowSeedRequest(0, x, y, row, col, item);
+		return event;
+	}
+
+	public static CTSEvent handleInventoryOverview() {
+		CTSEvent event = new InventoryOverviewRequest(0);
+		return event;
+	}
+
 	// ===================PUBLIC & PRIVATE METHODS SEPARATOR========================
 
 	private static String readUsername(Scanner scanner) {
@@ -63,13 +81,13 @@ public class InputHandler {
 	}
 
 	private static int readX(Scanner scanner) {
-		System.out.print("X: ");
+		System.out.print("Farm Land X: ");
 		int x = Integer.parseInt(scanner.nextLine());
 		return x;
 	}
 
 	private static int readY(Scanner scanner) {
-		System.out.print("Y: ");
+		System.out.print("Farm Land Y: ");
 		int y = Integer.parseInt(scanner.nextLine());
 		return y;
 	}
