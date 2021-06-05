@@ -59,7 +59,14 @@ public class TypingInteraction extends FarmingInteraction {
 	}
 
 	private void handleHelp() {
-		String string = "\nOptions:\n" + "\t(quit/q) to quit\n" + "\t(check/c) to check messages\n" + "\t(read/r) to read next message\n" + "\t(login/lg) to login\n" + "\t(farmland/fl) to see your farmland\n" + "\t(flplant/flp) to inspect a plant\n" + "\t(flterrain/flt) to inspect the terrain\n";
+		String string = "\nOptions:\n"
+				+ "\t(quit/q) to quit\n"
+				+ "\t(check/c) to check messages\n"
+				+ "\t(read/r) to read next message\n"
+				+ "\t(login/lg) to login\n"
+				+ "\t(farmland/fl) to see your farmland\n"
+				+ "\t(flplant/flp) to inspect a plant\n"
+				+ "\t(flterrain/flt) to inspect the terrain\n";
 		System.out.println(string);
 	}
 
