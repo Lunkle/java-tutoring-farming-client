@@ -44,6 +44,8 @@ public class TypingInteraction extends FarmingInteraction {
 				event = InputHandler.handleSave();
 			} else if (input.equals("inventory") || input.equals("i")) {
 				event = InputHandler.handleInventoryOverview();
+			} else if (input.equals("report") || input.equals("rp")) {
+				event = InputHandler.handleReport(scanner);
 			} else if (input.equals("harvest") || input.equals("h")) {
 				event = InputHandler.handleHarvest(scanner);
 			} else if (input.equals("sowseed") || input.equals("ss")) {
@@ -76,6 +78,7 @@ public class TypingInteraction extends FarmingInteraction {
 				+ "\t('read'/'r') to read next message\n"
 				+ "\t('login'/'lg') to login\n"
 				+ "\t('inventory'/'i') to see your inventory\n"
+				+ "\t('report'/'rp') to see a report\n"
 				+ "\t('sowseed'/'ss') to sow a seed\n"
 				+ "\t('harvest'/'h') to harvest a plant\n"
 				+ "\t('farmland'/'fl') to see your farmland\n"

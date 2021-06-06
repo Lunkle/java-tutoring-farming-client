@@ -8,6 +8,7 @@ import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.InventoryOverviewRequest;
 import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
+import event.ctsevent.game.ReportPurchaseRequest;
 import event.ctsevent.game.SowSeedRequest;
 import event.ctsevent.session.CloseSessionRequest;
 import event.ctsevent.session.LoginRequest;
@@ -82,6 +83,19 @@ public class InputHandler {
 		return event;
 	}
 
+	public static CTSEvent handleReport(Scanner scanner) {
+		System.out.print("Year: ");
+		int year = Integer.parseInt(scanner.nextLine());
+		System.out.print("Month: ");
+		int month = Integer.parseInt(scanner.nextLine());
+		System.out.print("Date: ");
+		int date = Integer.parseInt(scanner.nextLine());
+		System.out.print("Type: ");
+		String type = scanner.nextLine();
+		CTSEvent event = new ReportPurchaseRequest(0, year, month, date, type);
+		return event;
+	}
+
 	// ===================PUBLIC & PRIVATE METHODS SEPARATOR========================
 
 	private static String readUsername(Scanner scanner) {
@@ -100,12 +114,14 @@ public class InputHandler {
 		System.out.print("Farm Land X: ");
 		int x = Integer.parseInt(scanner.nextLine());
 		return x;
+//		return 0;
 	}
 
 	private static int readY(Scanner scanner) {
 		System.out.print("Farm Land Y: ");
 		int y = Integer.parseInt(scanner.nextLine());
 		return y;
+//		return 0;
 	}
 
 	private static int readRow(Scanner scanner) {
