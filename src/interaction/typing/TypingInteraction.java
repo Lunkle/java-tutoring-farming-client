@@ -71,6 +71,7 @@ public class TypingInteraction extends FarmingInteraction {
 		String string = "\nOptions:\n"
 				+ "\t('help') for options\n"
 				+ "\t('quit'/'q') to quit\n"
+				+ "\t('save'/'s') to save\n"
 				+ "\t('check'/'c') to check messages\n"
 				+ "\t('read'/'r') to read next message\n"
 				+ "\t('login'/'lg') to login\n"
