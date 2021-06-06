@@ -11,6 +11,7 @@ import event.ctsevent.game.LandSlotTerrainOverviewRequest;
 import event.ctsevent.game.SowSeedRequest;
 import event.ctsevent.session.CloseSessionRequest;
 import event.ctsevent.session.LoginRequest;
+import event.ctsevent.session.SaveRequest;
 
 public class InputHandler {
 
@@ -73,6 +74,11 @@ public class InputHandler {
 		int row = readRow(scanner);
 		int col = readCol(scanner);
 		CTSEvent event = new HarvestLandSlotRequest(0, x, y, row, col);
+		return event;
+	}
+
+	public static CTSEvent handleSave() {
+		CTSEvent event = new SaveRequest(0);
 		return event;
 	}
 

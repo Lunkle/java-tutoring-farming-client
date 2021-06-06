@@ -40,6 +40,8 @@ public class TypingInteraction extends FarmingInteraction {
 			} else if (input.equals("quit") || input.equals("q")) {
 				event = InputHandler.handleQuit();
 				quit = true;
+			} else if (input.equals("save") || input.equals("s")) {
+				event = InputHandler.handleSave();
 			} else if (input.equals("inventory") || input.equals("i")) {
 				event = InputHandler.handleInventoryOverview();
 			} else if (input.equals("harvest") || input.equals("h")) {
@@ -62,6 +64,7 @@ public class TypingInteraction extends FarmingInteraction {
 			}
 		}
 		return quit;
+
 	}
 
 	private void handleHelp() {
