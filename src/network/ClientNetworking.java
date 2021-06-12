@@ -29,9 +29,11 @@ public class ClientNetworking {
 	private Thread readerThread;
 	private Thread senderThread;
 	private boolean started = false;
+	private int serverPort;
 
-	public ClientNetworking(String serverIp, NetworkingBuffers buffers) {
+	public ClientNetworking(String serverIp, int serverPort, NetworkingBuffers buffers) {
 		this.serverIp = serverIp;
+		this.serverPort = serverPort;
 		this.ctsBuffer = buffers.getCtsBuffer();
 		this.stcBuffer = buffers.getStcBuffer();
 	}
@@ -50,7 +52,7 @@ public class ClientNetworking {
 	private void connectToServer() {
 		System.out.println("Contacting server...");
 		try {
-			socket = new Socket(serverIp, 45000);
+			socket = new Socket(serverIp, serverPort);
 			System.out.println("Connection accepted.");
 		} catch (Exception e) {
 			System.err.println("Failed to connect to Donny's server.");
