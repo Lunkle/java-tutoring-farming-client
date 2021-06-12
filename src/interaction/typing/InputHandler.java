@@ -3,12 +3,13 @@ package interaction.typing;
 import java.util.Scanner;
 
 import event.ctsevent.CTSEvent;
+import event.ctsevent.game.AdvancedReportPurchaseRequest;
+import event.ctsevent.game.BasicReportPurchaseRequest;
 import event.ctsevent.game.FarmLandOverviewRequest;
 import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.InventoryOverviewRequest;
 import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
-import event.ctsevent.game.ReportPurchaseRequest;
 import event.ctsevent.game.SowSeedRequest;
 import event.ctsevent.session.CloseSessionRequest;
 import event.ctsevent.session.LoginRequest;
@@ -83,16 +84,25 @@ public class InputHandler {
 		return event;
 	}
 
-	public static CTSEvent handleReport(Scanner scanner) {
+	public static CTSEvent handleBasicReport(Scanner scanner) {
 		System.out.print("Year: ");
 		int year = Integer.parseInt(scanner.nextLine());
 		System.out.print("Month: ");
 		int month = Integer.parseInt(scanner.nextLine());
 		System.out.print("Date: ");
 		int date = Integer.parseInt(scanner.nextLine());
-		System.out.print("Type: ");
-		String type = scanner.nextLine();
-		CTSEvent event = new ReportPurchaseRequest(0, year, month, date, type);
+		CTSEvent event = new BasicReportPurchaseRequest(0, year, month, date);
+		return event;
+	}
+
+	public static CTSEvent handleAdvancedReport(Scanner scanner) {
+		System.out.print("Year: ");
+		int year = Integer.parseInt(scanner.nextLine());
+		System.out.print("Month: ");
+		int month = Integer.parseInt(scanner.nextLine());
+		System.out.print("Date: ");
+		int date = Integer.parseInt(scanner.nextLine());
+		CTSEvent event = new AdvancedReportPurchaseRequest(0, year, month, date);// year, month, date, type);
 		return event;
 	}
 
