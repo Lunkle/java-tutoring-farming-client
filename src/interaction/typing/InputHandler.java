@@ -121,17 +121,17 @@ public class InputHandler {
 	}
 
 	private static int readX(Scanner scanner) {
-		System.out.print("Farm Land X: ");
-		int x = Integer.parseInt(scanner.nextLine());
-		return x;
-//		return 0;
+//		System.out.print("Farm Land X: ");
+//		int x = Integer.parseInt(scanner.nextLine());
+//		return x;
+		return 0;
 	}
 
 	private static int readY(Scanner scanner) {
-		System.out.print("Farm Land Y: ");
-		int y = Integer.parseInt(scanner.nextLine());
-		return y;
-//		return 0;
+//		System.out.print("Farm Land Y: ");
+//		int y = Integer.parseInt(scanner.nextLine());
+//		return y;
+		return 0;
 	}
 
 	private static int readRow(Scanner scanner) {
