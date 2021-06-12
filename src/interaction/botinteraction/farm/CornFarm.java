@@ -27,6 +27,8 @@ public class CornFarm extends FarmingInteraction {
 			gridHarvestSeed();
 		}
 
+		System.out.println("FARMING COMPLETE");
+
 	}
 
 	private void gridSowSeed() {

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import interaction.FarmingInteraction;
+import interaction.botinteraction.EndingInteraction;
 import interaction.botinteraction.farm.CornFarm;
 import interaction.botinteraction.startupinteraction.InventoryOverview;
 import interaction.botinteraction.startupinteraction.LoginInteraction;
-import interaction.typing.TypingInteraction;
 import network.NetworkingBuffers;
 
 public class FarmingInteractionProcess {
@@ -27,8 +27,11 @@ public class FarmingInteractionProcess {
 		FarmingInteraction cornFarm = new CornFarm(buffers);
 		interactions.add(cornFarm);
 
-		FarmingInteraction typingInteraction = new TypingInteraction(buffers);
-		interactions.add(typingInteraction);
+		FarmingInteraction endingInteraction = new EndingInteraction(buffers);
+		interactions.add(endingInteraction);
+
+//		FarmingInteraction typingInteraction = new TypingInteraction(buffers);
+//		interactions.add(typingInteraction);
 
 	}
 
