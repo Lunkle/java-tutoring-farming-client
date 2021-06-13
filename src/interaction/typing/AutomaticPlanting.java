@@ -31,13 +31,13 @@ public class AutomaticPlanting extends FarmingInteraction {
 			amounts = inventoryResponse.getAmounts();
 		}
 		for (int i = 0; i < items.length; i++) {
-			if ((items[i]).equals("Corn kernel")) {
+			if ((items[i]).equals("Wheat seed")) {
 				wheatIndex = i;
 			}
 		}
 		while (count < 50) {
 			if (amounts[wheatIndex] != 0) {
-				for (int j = 0; j < amounts[wheatIndex]; j++) {
+				for (int j = 0; j < 4; j++) {
 
 					if (amounts[wheatIndex] > 12) {
 						plantWheatSeed(0, 0, 0, 3, j);
@@ -51,12 +51,12 @@ public class AutomaticPlanting extends FarmingInteraction {
 					if (amounts[wheatIndex] > 0) {
 						plantWheatSeed(0, 0, 0, 0, j);
 					}
+
 				}
-				sleep(310000);
-				for (int k = 0; k < 3; k++) {
-					for (int l = 0; l < 3; l++) {
+				sleep(181000);
+				for (int k = 0; k < 4; k++) {
+					for (int l = 0; l < 4; l++) {
 						harvestWheatSeed(0, 0, 0, k, l);
-						System.out.println("gotHere");
 					}
 				}
 			}
