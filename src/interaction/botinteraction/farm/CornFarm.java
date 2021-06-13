@@ -4,6 +4,8 @@ import event.ctsevent.CTSEvent;
 import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.SowSeedRequest;
 import event.stcevent.STCEvent;
+import event.stcevent.game.HarvestLandSlotFailResponse;
+import event.stcevent.game.HarvestLandSlotSuccessResponse;
 import interaction.FarmingInteraction;
 import network.NetworkingBuffers;
 
@@ -21,7 +23,7 @@ public class CornFarm extends FarmingInteraction {
 
 		gridHarvestSeed();
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 20; i++) {
 			gridSowSeed();
 			sleepThreeMins();
 			gridHarvestSeed();
@@ -59,6 +61,10 @@ public class CornFarm extends FarmingInteraction {
 			}
 
 		}
+
+		int extraCornKernel = 0;
+		int goldCornKernel = 0;
+
 		for (int k = 0; k < 16; k++) {
 			while (!hasUnreadEvents()) {
 				try {
@@ -68,8 +74,26 @@ public class CornFarm extends FarmingInteraction {
 				}
 			}
 			STCEvent harvestSeedResponse = readEvent();
-			System.out.println(harvestSeedResponse.getDescription());
+//			System.out.println(harvestSeedResponse.getDescription());
+//			System.out.println(harvestSeedResponse.getClass());
+			if (harvestSeedResponse instanceof HarvestLandSlotFailResponse) {
+				HarvestLandSlotFailResponse failedHarvest = (HarvestLandSlotFailResponse) harvestSeedResponse;
+			} else if (harvestSeedResponse instanceof HarvestLandSlotSuccessResponse) {
+				HarvestLandSlotSuccessResponse sucessfulHarvest = (HarvestLandSlotSuccessResponse) harvestSeedResponse;
+				String[] itemNames = sucessfulHarvest.getItems();
+				int[] itemAmounts = sucessfulHarvest.getAmounts();
+				for (int i = 0; i < itemNames.length; i++) {
+					if (itemNames[i].equals("Corn kernel")) {
+						extraCornKernel = extraCornKernel + itemAmounts[i] - 1;
+					}
+					if (itemNames[i].equals("Golden corn kernel")) {
+						goldCornKernel = goldCornKernel + itemAmounts[i];
+					}
+				}
+			}
 		}
+		System.out.println(extraCornKernel + " corn kernels farmed");
+		System.out.println(goldCornKernel + " golden corn kernels farmed");
 	}
 
 	private void sleepThreeMins() {
