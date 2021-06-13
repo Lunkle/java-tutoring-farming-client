@@ -33,4 +33,13 @@ public abstract class FarmingInteraction {
 		return stcBuffer.poll();
 	}
 
+	protected void sleep(int x) {
+		try {
+			Thread.sleep(x);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
