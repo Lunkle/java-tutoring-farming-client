@@ -21,15 +21,6 @@ public class NetworkMessageReader implements Runnable {
 	public void run() {
 		while (!isDone) {
 			readEvent();
-			sleep();
-		}
-	}
-
-	private void sleep() {
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 
