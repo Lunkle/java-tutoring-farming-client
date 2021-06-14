@@ -12,6 +12,7 @@ import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
 import event.ctsevent.game.ShopCancelRequest;
 import event.ctsevent.game.ShopCollectRequest;
+import event.ctsevent.game.ShopInspectRequest;
 import event.ctsevent.game.ShopOverviewRequest;
 import event.ctsevent.game.ShopSellRequest;
 import event.ctsevent.game.SowSeedRequest;
@@ -123,6 +124,13 @@ public class InputHandler {
 		System.out.print("Amount: ");
 		int amount = Integer.parseInt(scanner.nextLine());
 		CTSEvent event = new ShopSellRequest(0, row, col, item, amount);
+		return event;
+	}
+
+	public static CTSEvent handleShopInspect(Scanner scanner) {
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		CTSEvent event = new ShopInspectRequest(0, row, col);
 		return event;
 	}
 
