@@ -34,7 +34,7 @@ public class NetworkMessageSender implements Runnable {
 	}
 
 	private void writeEvent() {
-		if (!ctsBuffer.isEmpty()) {
+		while (!ctsBuffer.isEmpty()) {
 			try {
 				objectOutputStream.writeObject(ctsBuffer.poll());
 			} catch (IOException e) {
