@@ -8,6 +8,7 @@ import event.ctsevent.game.BasicReportPurchaseRequest;
 import event.ctsevent.game.FarmLandOverviewRequest;
 import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.InventoryOverviewRequest;
+import event.ctsevent.game.ItemOverviewRequest;
 import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
 import event.ctsevent.game.ShopCancelRequest;
@@ -148,6 +149,13 @@ public class InputHandler {
 		return event;
 	}
 
+	public static CTSEvent handleItemInspect(Scanner scanner) {
+		System.out.print("Item name: ");
+		String item = scanner.nextLine();
+		CTSEvent event = new ItemOverviewRequest(0, item);
+		return event;
+	}
+
 	// ===================PUBLIC & PRIVATE METHODS SEPARATOR========================
 
 	private static String readUsername(Scanner scanner) {
@@ -187,5 +195,4 @@ public class InputHandler {
 		int col = Integer.parseInt(scanner.nextLine());
 		return col;
 	}
-
 }
