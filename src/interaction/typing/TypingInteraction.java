@@ -98,7 +98,7 @@ public class TypingInteraction extends FarmingInteraction {
 				+ "\t('flplant'/'flp') to inspect a plant\n"
 				+ "\t('flterrain'/'flt') to inspect the terrain\n"
 				+ "\t('shop'/'sp') to see your shop\n"
-				+ "\t('shopsell'/'s') to sell some items\n"
+				+ "\t('shopsell'/'sps') to sell some items\n"
 				+ "\t('shopinspect'/'spi') to inspect a sale\n"
 				+ "\t('shopcancel'/'spx') to cancel a sale\n"
 				+ "\t('shopcollect'/'spc') to collect a completed sale\n";
