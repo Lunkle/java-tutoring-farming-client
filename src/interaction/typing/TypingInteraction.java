@@ -58,6 +58,14 @@ public class TypingInteraction extends FarmingInteraction {
 				event = InputHandler.handlePlantOverview(scanner);
 			} else if (input.equals("flterrain") || input.equals("flt")) {
 				event = InputHandler.handleTerrainOverview(scanner);
+			} else if (input.equals("shop") || input.equals("sp")) {
+				event = InputHandler.handleShopOverview(scanner);
+			} else if (input.equals("shopsell") || input.equals("sps")) {
+				event = InputHandler.handleShopSell(scanner);
+			} else if (input.equals("shopcancel") || input.equals("spx")) {
+				event = InputHandler.handleShopCancel(scanner);
+			} else if (input.equals("shopcollect") || input.equals("spc")) {
+				event = InputHandler.handleShopCollect(scanner);
 			} else {
 				System.out.println("[Client]: Command not recognized");
 				isGibberish = true;
