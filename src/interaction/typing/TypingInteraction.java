@@ -68,6 +68,8 @@ public class TypingInteraction extends FarmingInteraction {
 				event = InputHandler.handleShopCancel(scanner);
 			} else if (input.equals("shopcollect") || input.equals("spc")) {
 				event = InputHandler.handleShopCollect(scanner);
+			} else if (input.equals("iteminspect") || input.equals("ii")) {
+				event = InputHandler.handleItemInspect(scanner);
 			} else {
 				System.out.println("[Client]: Command not recognized");
 				isGibberish = true;
@@ -101,7 +103,8 @@ public class TypingInteraction extends FarmingInteraction {
 				+ "\t('shopsell'/'sps') to sell some items\n"
 				+ "\t('shopinspect'/'spi') to inspect a sale\n"
 				+ "\t('shopcancel'/'spx') to cancel a sale\n"
-				+ "\t('shopcollect'/'spc') to collect a completed sale\n";
+				+ "\t('shopcollect'/'spc') to collect a completed sale\n"
+				+ "\t('iteminspect'/'ii') to inspect an item\n";
 		System.out.println(string);
 	}
 
