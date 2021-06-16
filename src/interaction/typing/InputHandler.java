@@ -3,8 +3,8 @@ package interaction.typing;
 import java.util.Scanner;
 
 import event.ctsevent.CTSEvent;
-import event.ctsevent.game.AdvancedReportPurchaseRequest;
-import event.ctsevent.game.BasicReportPurchaseRequest;
+import event.ctsevent.game.FarmLandAdvancedReportPurchaseRequest;
+import event.ctsevent.game.FarmLandBasicReportPurchaseRequest;
 import event.ctsevent.game.FarmLandOverviewRequest;
 import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.InventoryOverviewRequest;
@@ -97,7 +97,7 @@ public class InputHandler {
 		int month = Integer.parseInt(scanner.nextLine());
 		System.out.print("Date: ");
 		int date = Integer.parseInt(scanner.nextLine());
-		CTSEvent event = new BasicReportPurchaseRequest(0, year, month, date);
+		CTSEvent event = new FarmLandBasicReportPurchaseRequest(0, year, month, date);
 		return event;
 	}
 
@@ -108,7 +108,7 @@ public class InputHandler {
 		int month = Integer.parseInt(scanner.nextLine());
 		System.out.print("Date: ");
 		int date = Integer.parseInt(scanner.nextLine());
-		CTSEvent event = new AdvancedReportPurchaseRequest(0, year, month, date);// year, month, date, type);
+		CTSEvent event = new FarmLandAdvancedReportPurchaseRequest(0, year, month, date);// year, month, date, type);
 		return event;
 	}
 
