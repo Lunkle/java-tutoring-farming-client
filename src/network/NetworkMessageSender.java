@@ -37,6 +37,7 @@ public class NetworkMessageSender implements Runnable {
 		while (!ctsBuffer.isEmpty()) {
 			try {
 				objectOutputStream.writeObject(ctsBuffer.poll());
+				objectOutputStream.flush();
 			} catch (IOException e) {
 				System.out.println("Closing message sender");
 			}
