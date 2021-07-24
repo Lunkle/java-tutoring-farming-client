@@ -19,7 +19,7 @@ public class LoginInteraction extends FarmingInteraction {
 //		CTSEvent ctsEvent = null;
 //		sendEvent(ctsEvent);
 
-		CTSEvent loginRequest = new LoginRequest(0, "lunkle", "1234");
+		CTSEvent loginRequest = new LoginRequest(0, "theavenger71", "password");
 		System.out.println(loginRequest.getDescription());
 		sendEvent(loginRequest);
 

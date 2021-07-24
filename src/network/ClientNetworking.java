@@ -1,20 +1,13 @@
 package network;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Queue;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import event.ctsevent.CTSEvent;
 import event.stcevent.STCEvent;
-import network.json.GsonRequestSerializer;
-import network.json.GsonResponseDeserializer;
 
 /**
  * In charge of sending {@link CTSEvent}s and receiving {@link STCEvent}s.
@@ -25,20 +18,20 @@ import network.json.GsonResponseDeserializer;
  * @author Jay
  *
  */
-public class JsonClientNetworking {
+public class ClientNetworking {
 
 	private Socket socket;
 	private String serverIp;
 	private Queue<CTSEvent> ctsBuffer;
 	private Queue<STCEvent> stcBuffer;
-	private JsonNetworkMessageReader reader;
-	private JsonNetworkMessageSender sender;
+	private NetworkMessageReader reader;
+	private NetworkMessageSender sender;
 	private Thread readerThread;
 	private Thread senderThread;
 	private boolean started = false;
 	private int serverPort;
 
-	public JsonClientNetworking(String serverIp, int serverPort, NetworkingBuffers buffers) {
+	public ClientNetworking(String serverIp, int serverPort, NetworkingBuffers buffers) {
 		this.serverIp = serverIp;
 		this.serverPort = serverPort;
 		this.ctsBuffer = buffers.getCtsBuffer();
@@ -47,12 +40,8 @@ public class JsonClientNetworking {
 
 	public void start() {
 		connectToServer();
-		Gson gson = new GsonBuilder()
-				.registerTypeAdapter(CTSEvent.class, new GsonRequestSerializer())
-				.registerTypeAdapter(STCEvent.class, new GsonResponseDeserializer())
-				.create();
-		sender = new JsonNetworkMessageSender(gson, getOutputStream(), ctsBuffer);
-		reader = new JsonNetworkMessageReader(gson, getInputStream(), stcBuffer);
+		sender = new NetworkMessageSender(getOutputStream(), ctsBuffer);
+		reader = new NetworkMessageReader(getInputStream(), stcBuffer);
 		readerThread = new Thread(reader);
 		readerThread.start();
 		senderThread = new Thread(sender);
@@ -86,18 +75,19 @@ public class JsonClientNetworking {
 		}
 	}
 
-	private BufferedWriter getOutputStream() {
+	private ObjectOutputStream getOutputStream() {
 		try {
-			return new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			return new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		throw new RuntimeException("Failed to get output stream from server");
 	}
 
-	private BufferedReader getInputStream() {
+	private ObjectInputStream getInputStream() {
 		try {
-			return new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+			return objectInputStream;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

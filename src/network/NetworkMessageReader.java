@@ -1,23 +1,19 @@
 package network;
 
-import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Queue;
-
-import com.google.gson.Gson;
 
 import event.stcevent.STCEvent;
 
-public class JsonNetworkMessageReader implements Runnable {
+public class NetworkMessageReader implements Runnable {
 
-	private BufferedReader bufferedReader;
+	private ObjectInputStream objectInputStream;
 	private Queue<STCEvent> stcBuffer;
 	private boolean isDone = false;
-	private Gson gson;
 
-	public JsonNetworkMessageReader(Gson gson, BufferedReader bufferedReader, Queue<STCEvent> stcBuffer) {
-		this.gson = gson;
-		this.bufferedReader = bufferedReader;
+	public NetworkMessageReader(ObjectInputStream objectInputStream, Queue<STCEvent> stcBuffer) {
+		this.objectInputStream = objectInputStream;
 		this.stcBuffer = stcBuffer;
 	}
 
@@ -30,8 +26,10 @@ public class JsonNetworkMessageReader implements Runnable {
 
 	private void readEvent() {
 		try {
-			STCEvent readEvent = gson.fromJson(bufferedReader.readLine(), STCEvent.class);
+			STCEvent readEvent = (STCEvent) objectInputStream.readObject();
 			stcBuffer.add(readEvent);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Closing message reader");
 			close();

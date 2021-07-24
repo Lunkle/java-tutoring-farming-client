@@ -23,9 +23,9 @@ public class CornFarm extends FarmingInteraction {
 
 		gridHarvestSeed();
 
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 20; i++) {
 			gridSowSeed();
-			sleep(3 * 60 * 1_000);
+			sleepThreeMins();
 			gridHarvestSeed();
 		}
 
@@ -36,7 +36,7 @@ public class CornFarm extends FarmingInteraction {
 	private void gridSowSeed() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				sowCornSeed(i, j, "corn_kernel");
+				sowCornSeed(i, j);
 			}
 
 		}
@@ -63,7 +63,6 @@ public class CornFarm extends FarmingInteraction {
 		}
 
 		int extraCornKernel = 0;
-		int extraWheatSeeds = 0;
 		int goldCornKernel = 0;
 
 		for (int k = 0; k < 16; k++) {
@@ -78,7 +77,7 @@ public class CornFarm extends FarmingInteraction {
 //			System.out.println(harvestSeedResponse.getDescription());
 //			System.out.println(harvestSeedResponse.getClass());
 			if (harvestSeedResponse instanceof HarvestLandSlotFailResponse) {
-//				HarvestLandSlotFailResponse failedHarvest = (HarvestLandSlotFailResponse) harvestSeedResponse;
+				HarvestLandSlotFailResponse failedHarvest = (HarvestLandSlotFailResponse) harvestSeedResponse;
 			} else if (harvestSeedResponse instanceof HarvestLandSlotSuccessResponse) {
 				HarvestLandSlotSuccessResponse sucessfulHarvest = (HarvestLandSlotSuccessResponse) harvestSeedResponse;
 				String[] itemNames = sucessfulHarvest.getItems();
@@ -90,27 +89,23 @@ public class CornFarm extends FarmingInteraction {
 					if (itemNames[i].equals("Golden corn kernel")) {
 						goldCornKernel = goldCornKernel + itemAmounts[i];
 					}
-					if (itemNames[i].equals("Wheat seed")) {
-						extraWheatSeeds = extraWheatSeeds + itemAmounts[i] - 1;
-					}
 				}
 			}
 		}
-		System.out.println(extraWheatSeeds + " extra wheat seeds farmed");
-		System.out.println(extraCornKernel + " extra corn kernels farmed");
+		System.out.println(extraCornKernel + " corn kernels farmed");
 		System.out.println(goldCornKernel + " golden corn kernels farmed");
 	}
 
-	private void sleep(int millis) {
+	private void sleepThreeMins() {
 		try {
-			Thread.sleep(millis);
+			Thread.sleep(180000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void sowCornSeed(int i, int j, String string) {
-		CTSEvent sowSeed = new SowSeedRequest(0, 0, 0, i, j, string);
+	private void sowCornSeed(int i, int j) {
+		CTSEvent sowSeed = new SowSeedRequest(0, 0, 0, i, j, "corn kernel");
 		System.out.println(sowSeed.getDescription());
 		sendEvent(sowSeed);
 	}
