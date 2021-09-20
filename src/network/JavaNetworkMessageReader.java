@@ -6,13 +6,13 @@ import java.util.Queue;
 
 import event.stcevent.STCEvent;
 
-public class NetworkMessageReader implements Runnable {
+public class JavaNetworkMessageReader implements Runnable {
 
 	private ObjectInputStream objectInputStream;
 	private Queue<STCEvent> stcBuffer;
 	private boolean isDone = false;
 
-	public NetworkMessageReader(ObjectInputStream objectInputStream, Queue<STCEvent> stcBuffer) {
+	public JavaNetworkMessageReader(ObjectInputStream objectInputStream, Queue<STCEvent> stcBuffer) {
 		this.objectInputStream = objectInputStream;
 		this.stcBuffer = stcBuffer;
 	}
@@ -21,15 +21,6 @@ public class NetworkMessageReader implements Runnable {
 	public void run() {
 		while (!isDone) {
 			readEvent();
-			sleep();
-		}
-	}
-
-	private void sleep() {
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 

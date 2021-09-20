@@ -58,6 +58,18 @@ public class TypingInteraction extends FarmingInteraction {
 				event = InputHandler.handlePlantOverview(scanner);
 			} else if (input.equals("flterrain") || input.equals("flt")) {
 				event = InputHandler.handleTerrainOverview(scanner);
+			} else if (input.equals("shop") || input.equals("sp")) {
+				event = InputHandler.handleShopOverview(scanner);
+			} else if (input.equals("shopsell") || input.equals("sps")) {
+				event = InputHandler.handleShopSell(scanner);
+			} else if (input.equals("shopinspect") || input.equals("spi")) {
+				event = InputHandler.handleShopInspect(scanner);
+			} else if (input.equals("shopcancel") || input.equals("spx")) {
+				event = InputHandler.handleShopCancel(scanner);
+			} else if (input.equals("shopcollect") || input.equals("spc")) {
+				event = InputHandler.handleShopCollect(scanner);
+			} else if (input.equals("iteminspect") || input.equals("ii")) {
+				event = InputHandler.handleItemInspect(scanner);
 			} else {
 				System.out.println("[Client]: Command not recognized");
 				isGibberish = true;
@@ -86,7 +98,13 @@ public class TypingInteraction extends FarmingInteraction {
 				+ "\t('harvest'/'h') to harvest a plant\n"
 				+ "\t('farmland'/'fl') to see your farmland\n"
 				+ "\t('flplant'/'flp') to inspect a plant\n"
-				+ "\t('flterrain'/'flt') to inspect the terrain\n";
+				+ "\t('flterrain'/'flt') to inspect the terrain\n"
+				+ "\t('shop'/'sp') to see your shop\n"
+				+ "\t('shopsell'/'sps') to sell some items\n"
+				+ "\t('shopinspect'/'spi') to inspect a sale\n"
+				+ "\t('shopcancel'/'spx') to cancel a sale\n"
+				+ "\t('shopcollect'/'spc') to collect a completed sale\n"
+				+ "\t('iteminspect'/'ii') to inspect an item\n";
 		System.out.println(string);
 	}
 

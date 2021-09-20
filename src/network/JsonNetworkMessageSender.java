@@ -1,19 +1,23 @@
 package network;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Queue;
+
+import com.google.gson.Gson;
 
 import event.ctsevent.CTSEvent;
 
-public class NetworkMessageSender implements Runnable {
+public class JsonNetworkMessageSender implements Runnable {
 
-	private ObjectOutputStream objectOutputStream;
+	private BufferedWriter bufferedWriter;
 	private Queue<CTSEvent> ctsBuffer;
 	private boolean isDone = false;
+	private Gson gson;
 
-	public NetworkMessageSender(ObjectOutputStream objectOutputStream, Queue<CTSEvent> ctsBuffer) {
-		this.objectOutputStream = objectOutputStream;
+	public JsonNetworkMessageSender(Gson gson, BufferedWriter bufferedWriter, Queue<CTSEvent> ctsBuffer) {
+		this.gson = gson;
+		this.bufferedWriter = bufferedWriter;
 		this.ctsBuffer = ctsBuffer;
 	}
 
@@ -34,9 +38,10 @@ public class NetworkMessageSender implements Runnable {
 	}
 
 	private void writeEvent() {
-		if (!ctsBuffer.isEmpty()) {
+		while (!ctsBuffer.isEmpty()) {
 			try {
-				objectOutputStream.writeObject(ctsBuffer.poll());
+				bufferedWriter.write(gson.toJson(ctsBuffer.poll(), CTSEvent.class) + '\n');
+				bufferedWriter.flush();
 			} catch (IOException e) {
 				System.out.println("Closing message sender");
 			}

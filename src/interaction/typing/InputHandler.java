@@ -3,13 +3,19 @@ package interaction.typing;
 import java.util.Scanner;
 
 import event.ctsevent.CTSEvent;
-import event.ctsevent.game.AdvancedReportPurchaseRequest;
-import event.ctsevent.game.BasicReportPurchaseRequest;
+import event.ctsevent.game.FarmLandAdvancedReportPurchaseRequest;
+import event.ctsevent.game.FarmLandBasicReportPurchaseRequest;
 import event.ctsevent.game.FarmLandOverviewRequest;
 import event.ctsevent.game.HarvestLandSlotRequest;
 import event.ctsevent.game.InventoryOverviewRequest;
+import event.ctsevent.game.ItemOverviewRequest;
 import event.ctsevent.game.LandSlotPlantOverviewRequest;
 import event.ctsevent.game.LandSlotTerrainOverviewRequest;
+import event.ctsevent.game.ShopCancelRequest;
+import event.ctsevent.game.ShopCollectRequest;
+import event.ctsevent.game.ShopInspectRequest;
+import event.ctsevent.game.ShopOverviewRequest;
+import event.ctsevent.game.ShopSellRequest;
 import event.ctsevent.game.SowSeedRequest;
 import event.ctsevent.session.CloseSessionRequest;
 import event.ctsevent.session.LoginRequest;
@@ -59,7 +65,7 @@ public class InputHandler {
 		int y = readY(scanner);
 		int row = readRow(scanner);
 		int col = readCol(scanner);
-		System.out.print("Enter seed name: ");
+		System.out.print("Seed name: ");
 		String item = scanner.nextLine();
 		CTSEvent event = new SowSeedRequest(0, x, y, row, col, item);
 		return event;
@@ -91,7 +97,7 @@ public class InputHandler {
 		int month = Integer.parseInt(scanner.nextLine());
 		System.out.print("Date: ");
 		int date = Integer.parseInt(scanner.nextLine());
-		CTSEvent event = new BasicReportPurchaseRequest(0, year, month, date);
+		CTSEvent event = new FarmLandBasicReportPurchaseRequest(0, year, month, date);
 		return event;
 	}
 
@@ -102,7 +108,51 @@ public class InputHandler {
 		int month = Integer.parseInt(scanner.nextLine());
 		System.out.print("Date: ");
 		int date = Integer.parseInt(scanner.nextLine());
-		CTSEvent event = new AdvancedReportPurchaseRequest(0, year, month, date);// year, month, date, type);
+		CTSEvent event = new FarmLandAdvancedReportPurchaseRequest(0, year, month, date);// year, month, date, type);
+		return event;
+	}
+
+	public static CTSEvent handleShopOverview(Scanner scanner) {
+		CTSEvent event = new ShopOverviewRequest(0);
+		return event;
+	}
+
+	public static CTSEvent handleShopSell(Scanner scanner) {
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		System.out.print("Item name: ");
+		String item = scanner.nextLine();
+		System.out.print("Amount: ");
+		int amount = Integer.parseInt(scanner.nextLine());
+		CTSEvent event = new ShopSellRequest(0, row, col, item, amount);
+		return event;
+	}
+
+	public static CTSEvent handleShopInspect(Scanner scanner) {
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		CTSEvent event = new ShopInspectRequest(0, row, col);
+		return event;
+	}
+
+	public static CTSEvent handleShopCancel(Scanner scanner) {
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		CTSEvent event = new ShopCancelRequest(0, row, col);
+		return event;
+	}
+
+	public static CTSEvent handleShopCollect(Scanner scanner) {
+		int row = readRow(scanner);
+		int col = readCol(scanner);
+		CTSEvent event = new ShopCollectRequest(0, row, col);
+		return event;
+	}
+
+	public static CTSEvent handleItemInspect(Scanner scanner) {
+		System.out.print("Item name: ");
+		String item = scanner.nextLine();
+		CTSEvent event = new ItemOverviewRequest(0, item);
 		return event;
 	}
 
@@ -145,5 +195,4 @@ public class InputHandler {
 		int col = Integer.parseInt(scanner.nextLine());
 		return col;
 	}
-
 }
