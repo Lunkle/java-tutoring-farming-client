@@ -33,4 +33,19 @@ public abstract class FarmingInteraction {
 		return stcBuffer.poll();
 	}
 
+	public STCEvent readNextEvent() {
+		while (stcBuffer.isEmpty()) {
+			sleep(20);
+		}
+		return stcBuffer.poll();
+	}
+
+	public void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

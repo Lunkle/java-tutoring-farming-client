@@ -12,8 +12,8 @@ public class FarmingClientApp {
 		System.out.println("Starting client at " + InetAddress.getLocalHost().getHostAddress());
 		System.out.println("Computer name: " + InetAddress.getLocalHost().getHostName());
 		NetworkingBuffers buffers = new NetworkingBuffers();
-//		JavaClientNetworking clientNetworking = new JavaClientNetworking("72.140.156.47", 45000, buffers);
-		JsonClientNetworking clientNetworking = new JsonClientNetworking("72.140.156.47", 45001, buffers);
+//		JavaClientNetworking clientNetworking = new JavaClientNetworking("99.250.93.242", 45000, buffers);
+		JsonClientNetworking clientNetworking = new JsonClientNetworking("99.250.93.242", 45001, buffers);
 		clientNetworking.start();
 		FarmingInteractionProcess process = new FarmingInteractionProcess(buffers);
 		process.begin();
