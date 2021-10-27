@@ -2,7 +2,7 @@
 
 ![](screenshots/serverLogo.png)
 
-Join https://discord.gg/mnzA8KngSc to play the java tutoring farming game.
+Join https://discord.gg/VQzdqw2FWw to play the java tutoring farming game.
 
 Go to the farming-bot channel and **!id** to register.
 
