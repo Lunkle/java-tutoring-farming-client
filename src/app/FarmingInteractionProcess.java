@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import interaction.FarmingInteraction;
-import interaction.botinteraction.EndingInteraction;
-import interaction.botinteraction.farm.CornFarm;
+import interaction.botinteraction.buy.BuyFarmLand;
 import interaction.botinteraction.startupinteraction.InventoryOverview;
 import interaction.botinteraction.startupinteraction.LoginInteraction;
 import interaction.typing.TypingInteraction;
@@ -25,11 +24,17 @@ public class FarmingInteractionProcess {
 		FarmingInteraction inventoryOverview = new InventoryOverview(buffers);
 		interactions.add(inventoryOverview);
 
-		FarmingInteraction cornFarm = new CornFarm(buffers);
-		interactions.add(cornFarm);
+//		FarmingInteraction cornFarm = new CornFarm(buffers);
+//		interactions.add(cornFarm);
 
-		FarmingInteraction endingInteraction = new EndingInteraction(buffers);
-		interactions.add(endingInteraction);
+//		FarmingInteraction endingInteraction = new EndingInteraction(buffers);
+//		interactions.add(endingInteraction);
+
+//		FarmingInteraction earOfCornSell = new EarOfCornSellingInteraction(buffers);
+//		interactions.add(earOfCornSell);
+
+		FarmingInteraction buyFarmLand = new BuyFarmLand(buffers);
+		interactions.add(buyFarmLand);
 
 		FarmingInteraction typingInteraction = new TypingInteraction(buffers);
 		interactions.add(typingInteraction);
